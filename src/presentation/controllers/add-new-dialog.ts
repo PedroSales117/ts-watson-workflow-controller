@@ -1,9 +1,9 @@
-import { updateWorkspaceDialogTree, getWorkspaceDialogTree } from './create-assistant'
+import { updateWorkspaceDialogTree, getTargetWorkspaceDialogTree } from './create-assistant'
 
-export async function addNewDialogTreeToWorkspace (newDialogTree: any, entryPointNode: any): Promise<void> {
+export async function addNewDialogTreeToWorkspace (): Promise<void> {
   try {
-    const getWorkspaceDialogTreeResponse: any = await getWorkspaceDialogTree().then(async (workspaceDialogTree) => {
-      return await updateWorkspaceDialogTree(workspaceDialogTree, newDialogTree, entryPointNode).then((updateWorkspaceDialogTreeResponse) => {
+    const getWorkspaceDialogTreeResponse: any = await getTargetWorkspaceDialogTree().then(async (workspaceDialogTree: any) => {
+      return await updateWorkspaceDialogTree(workspaceDialogTree).then((updateWorkspaceDialogTreeResponse) => {
         if (updateWorkspaceDialogTreeResponse.status !== 200) {
           return {
             status: updateWorkspaceDialogTreeResponse.status,
