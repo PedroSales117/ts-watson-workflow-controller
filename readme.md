@@ -29,7 +29,7 @@ With your dialog tree created and your `.env` file ready, you will need to add t
 
 Should be like the images below.
 Export nodes:
-![Export nodes](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/Export_Nodes.png?raw=true)
+![Export nodes](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/export_nodes.png?raw=true)
 Import node:
 ![Import](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/import.png?raw=true)
 
