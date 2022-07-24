@@ -29,7 +29,7 @@ export async function updateWorkspaceDialogTree (targetWorkspaceDialogTree: any)
     })
 
     const importNode: any = targetWorkspaceDialogTree?.result?.dialog_nodes?.find((node: any) => {
-      return node?.title?.toLowerCase().includes('import')
+      return node?.title?.toLowerCase().includes('[import]')
     })
 
     if (!importNode) {
@@ -41,7 +41,7 @@ export async function updateWorkspaceDialogTree (targetWorkspaceDialogTree: any)
     }
 
     const entryPointNode: any = sourceNodesList?.find((node: any) => {
-      return node?.title?.toLowerCase().includes('entrypoint')
+      return node?.title?.toLowerCase().includes('[entrypoint]')
     })
 
     if (!entryPointNode) {
@@ -53,7 +53,7 @@ export async function updateWorkspaceDialogTree (targetWorkspaceDialogTree: any)
     }
 
     const nodesToExport = await sourceNodesList.filter((node: any) => {
-      return node?.title?.toLowerCase().includes('export')
+      return node?.title?.toLowerCase().includes('[export]')
     })
 
     if (!nodesToExport) {
