@@ -27,10 +27,10 @@ To configured the connection to your ibm watson assistant, check [IBM Cloud Wats
 ## Usage
 With your dialog tree created and your `.env` file ready, you will need to add the text `[ENTRYPOINT]` to the node that starts your dialog tree and then `[EXPORT]` in **all** the nodes you want to export with it. Then in the workspace that will receive the exported dialog tree add a **new node** named `[IMPORT]` **below the last node** of thw workspace.
 
-Should be like the images below.
-**Export nodes**:
+Should be like the images below.</br>
+**Export nodes**:</br>
 ![Export nodes](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/export_nodes.png?raw=true)</br></br>
-**Import node**:
+**Import node**:</br>
 ![Import](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/import.png?raw=true)
 
 ```bash
