@@ -1,4 +1,4 @@
-import { updateWorkspaceDialogTree, getTargetWorkspaceDialogTree } from './create-assistant'
+import { updateWorkspaceDialogTree, getTargetWorkspaceDialogTree } from './make-assistant'
 
 export async function addNewDialogTreeToWorkspace (): Promise<void> {
   try {
