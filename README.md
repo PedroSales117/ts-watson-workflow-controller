@@ -39,16 +39,20 @@ Para entender onde `WATSON_API_KEY` e `WATSON_SERVICE_URL` devem ser usados corr
 
 ## Uso
 
-Com sua árvore de diálogo criada e seu arquivo `.env` pronto, você precisará adicionar o texto `[ENTRYPOINT]` ao nó que inicia sua árvore de diálogo e então `[EXPORT]` em **todos** os nós que você deseja exportar com ele. Então, na workspace que receberá a árvore de diálogo exportada, adicione um **novo nó** chamado `[IMPORT]` **abaixo** do último nó da área de trabalho (por exemplo, nó Qualquer outra coisa). Deve ser como as imagens abaixo.
-**Source workspace(que envia o fluxo)**:
-![Exportar nós](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/export_nodes.png?raw=true)
-**Target workspace(que recebe o fluxo)**:
+Com sua árvore de diálogo criada e seu arquivo `.env` pronto, você precisará adicionar o texto `[ENTRYPOINT]` ao nó que inicia sua árvore de diálogo e então `[EXPORT]` em **todos** os nós que você deseja exportar com ele. Então, na workspace que receberá a árvore de diálogo exportada, adicione um **novo nó** chamado `[IMPORT]` **abaixo** do último nó da área de trabalho (por exemplo, nó Qualquer outra coisa). Deve ser como as imagens abaixo.  
+**Source workspace(que envia o fluxo)**:    
+![Exportar nós](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/export_nodes.png?raw=true)    
+**Target workspace(que recebe o fluxo)**:    
 ![Importar](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/import.png?raw=true)
 
-Após definir seu arquivo `.env`, seu `entry point node`, o `import node` e os `nodes que serão exportados`, você precisa executar o comando:
+Após definir seu arquivo `.env`, seu `entry point node`, o `import node` e os `nodes que serão exportados`, você precisa executar os comandos:
 
 ```bash
-npm início
+npm run build
+```
+
+```bash
+npm start
 ```
 
 Acessando a rota `/dialogtree/add` e fazendo a requisição **POST**.</br>
