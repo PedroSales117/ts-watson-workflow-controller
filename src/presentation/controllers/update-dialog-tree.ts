@@ -7,7 +7,8 @@ import { WATSON_ASSISTANT_TARGET_WORKSPACE_ID, WATSON_ASSISTANT_SOURCE_WORKSPACE
 export async function updateWorkspaceDialogTree (): Promise<any> {
   try {
     const targetNodesList: DialogNode[] = await createAssistantV1?.listDialogNodes({
-      workspaceId: WATSON_ASSISTANT_TARGET_WORKSPACE_ID
+      workspaceId: WATSON_ASSISTANT_TARGET_WORKSPACE_ID,
+      pageLimit: 100000
     }).then(nodesToExportResponse => {
       return nodesToExportResponse?.result?.dialog_nodes
     })
