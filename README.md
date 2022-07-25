@@ -25,7 +25,7 @@ tsc --init
 Para poder usar essa aplicação você precisará criar um arquivo `.env` com as seguintes variáveis.
 
 ```.env
-PORTA=8080
+PORT=8080
 WATSON_API_KEY=''
 WATSON_ASSISTANT_TARGET_WORKSPACE_ID=''
 WATSON_ASSISTANT_SOURCE_WORKSPACE_ID=''
