@@ -14,7 +14,8 @@ export async function updateWorkspaceDialogTree (): Promise<any> {
     })
 
     const sourceNodesList: DialogNode[] = await createAssistantV1?.listDialogNodes({
-      workspaceId: WATSON_ASSISTANT_SOURCE_WORKSPACE_ID
+      workspaceId: WATSON_ASSISTANT_SOURCE_WORKSPACE_ID,
+      pageLimit: 100000
     }).then(nodesToExportResponse => {
       return nodesToExportResponse?.result?.dialog_nodes
     })
