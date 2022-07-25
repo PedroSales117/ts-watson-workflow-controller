@@ -9,13 +9,13 @@ export async function updateWorkspaceDialogTree (): Promise<any> {
     const targetNodesList: DialogNode[] = await createAssistantV1?.listDialogNodes({
       workspaceId: WATSON_ASSISTANT_TARGET_WORKSPACE_ID
     }).then(nodesToExportResponse => {
-      return nodesToExportResponse.result.dialog_nodes
+      return nodesToExportResponse?.result?.dialog_nodes
     })
 
     const sourceNodesList: DialogNode[] = await createAssistantV1?.listDialogNodes({
       workspaceId: WATSON_ASSISTANT_SOURCE_WORKSPACE_ID
     }).then(nodesToExportResponse => {
-      return nodesToExportResponse.result.dialog_nodes
+      return nodesToExportResponse?.result?.dialog_nodes
     })
 
     const importNode: DialogNode = targetNodesList?.find((node: DialogNode) => {

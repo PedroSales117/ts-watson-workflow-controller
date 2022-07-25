@@ -12,6 +12,7 @@ Use the package manager [npm](https://www.npmjs.com/package/ibm-watson) to insta
 ```bash
 npm install ibm-watson
 ```
+
 To be able to use this application you will need to create a `.env` file with the following variables.
 
 ```.env
@@ -28,6 +29,7 @@ WATSON_SERVICE_URL=''
 To understand where `WATSON_API_KEY` and `WATSON_SERVICE_URL` should be used and where find your watson assistant credentials check [IBM Cloud Watson node SDK](https://github.com/watson-developer-cloud/node-sdk#assistant-v1).
 
 ## Usage
+
 With your dialog tree created and your `.env` file ready, you will need to add the text `[ENTRYPOINT]` to the node that starts your dialog tree and then `[EXPORT]` in **all** the nodes you want to export with it. In the workspace that will receive the exported dialog tree add a **new node** named `[IMPORT]` **below** the last node of the workspace(e.g Anything Else node). Should be like the images below.</br></br>
 **Export nodes**:</br>
 ![Export nodes](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/export_nodes.png?raw=true)</br></br>
@@ -35,30 +37,38 @@ With your dialog tree created and your `.env` file ready, you will need to add t
 ![Import](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/import.png?raw=true)
 
 After set your `.env` file, your `entry point node`, the `import node` and the `nodes that will be exported`, you need to run the command:
+
 ```bash
 npm start
 ```
+
 Acessing the route `/dialogtree/add` and do **POST** request.</br>
 ![Import](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/postman_request.png?raw=true)</br></br>
 And simple as that **your entire dialog tree** is exported to a workspace to another without any heavy reworking! :)
 ![Import](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/updated_dialog_tree.png?raw=true)</br></br>
 
 ## Errors
+
 When `import` text is poorly defined in target workspace.</br>
+
 ```json
 {
     "status":400,
     "error":"Import node not found"
 }
 ```
+
 When `entry point` text is poorly defined in source workspace.</br>
+
 ```json
 {
     "status": 400,
     "error": "Entry point node required"
 }
 ```
+
 Invelid tree and Collisions errors will occur when some of your export nodes are poorly defined or already exist on target workspace.</br>
+
 ```json
 {
     "status": 400,
@@ -66,5 +76,7 @@ Invelid tree and Collisions errors will occur when some of your export nodes are
     "message": "Bad Request"
 }
 ```
+
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
