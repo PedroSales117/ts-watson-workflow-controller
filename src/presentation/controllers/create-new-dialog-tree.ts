@@ -1,4 +1,4 @@
-import { badRequest, sucessResponse } from '../helpers/http-helper'
+import { badRequest } from '../helpers/http-helper'
 import { ListWorkspaceDialogNodes, getImportNode, getEntryPointNode, getExportedNodes, getMultipleResponseNodes, updateTargetWorkspaceDialogTree } from '../helpers/index'
 
 export async function updateWorkspaceDialogTree (): Promise<any> {
@@ -10,9 +10,7 @@ export async function updateWorkspaceDialogTree (): Promise<any> {
     const nodesToExportList = getExportedNodes(sourceNodesList)
     const multipleConditionedResponseList = getMultipleResponseNodes(sourceNodesList, nodesToExportList)
 
-    return await updateTargetWorkspaceDialogTree(targetNodesList, importNode, entryPointNode, nodesToExportList, multipleConditionedResponseList).then(response => {
-      return sucessResponse({ message: `nodes add to workspace: ${response?.result?.name}` })
-    })
+    return await updateTargetWorkspaceDialogTree(targetNodesList, importNode, entryPointNode, nodesToExportList, multipleConditionedResponseList)
   } catch (Error) {
     return badRequest(Error)
   }
