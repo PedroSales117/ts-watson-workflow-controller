@@ -28,8 +28,12 @@ export async function updateWorkspaceDialogTree (): Promise<any> {
       return node?.title?.toLowerCase().includes('[entrypoint]')
     })
 
-    const nodesToExport = sourceNodesList?.filter((node: DialogNode) => {
+    const nodesToExportList = sourceNodesList?.filter((node: DialogNode) => {
       return node?.title?.toLowerCase().includes('[export]')
+    })
+
+    const multipleConditionedResponseList = sourceNodesList?.filter((multipleResponseToExport: DialogNode) => {
+      return multipleResponseToExport?.type === 'response_condition' && nodesToExportList.map(nodeIdToExport => nodeIdToExport?.dialog_node).includes(multipleResponseToExport?.parent)
     })
 
     if (!importNode) {
@@ -38,7 +42,7 @@ export async function updateWorkspaceDialogTree (): Promise<any> {
     if (!entryPointNode) {
       return badRequest(new MissingWorkspaceParamError('[entryPointNode]'))
     }
-    if (!nodesToExport) {
+    if (!nodesToExportList) {
       return badRequest(new MissingWorkspaceParamError('[nodesToExport]'))
     }
 
@@ -47,7 +51,7 @@ export async function updateWorkspaceDialogTree (): Promise<any> {
 
     const updateWorkspaceResponse = await createAssistantV1.updateWorkspace({
       workspaceId: WATSON_ASSISTANT_TARGET_WORKSPACE_ID,
-      dialogNodes: targetNodesList.concat(entryPointNode, nodesToExport)
+      dialogNodes: targetNodesList.concat(entryPointNode, nodesToExportList, multipleConditionedResponseList)
     })
       .then(updateWorkspaceResponse => {
         return sucessResponse({ message: `nodes add to workspace: ${updateWorkspaceResponse?.result?.name}` })
