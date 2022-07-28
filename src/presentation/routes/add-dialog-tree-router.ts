@@ -1,5 +1,5 @@
 import { router } from '../config/express.config'
-import { addNewDialogTreeToWorkspace } from '../controllers/add-dialog-tree'
+import { addNewDialogTreeToWorkspace } from '../helpers/add-dialog-tree'
 
 export const createDialogTreeRouter = router
 

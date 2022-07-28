@@ -1,5 +1,5 @@
-import { badRequest } from '../helpers/http-helper'
-import { updateWorkspaceDialogTree } from './create-new-dialog-tree'
+import { badRequest } from './http-helper'
+import { updateWorkspaceDialogTree } from '../controllers/create-new-dialog-tree'
 
 export async function addNewDialogTreeToWorkspace (): Promise<any> {
   try {
