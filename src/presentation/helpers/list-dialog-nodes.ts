@@ -1,6 +1,6 @@
 import { DialogNode } from 'ibm-watson/assistant/v1'
+import { createAssistantV1 } from './assistant'
 import { WATSON_ASSISTANT_TARGET_WORKSPACE_ID, WATSON_ASSISTANT_SOURCE_WORKSPACE_ID } from '../config'
-import { createAssistantV1 } from '../helpers/assistant'
 
 export class ListWorkspaceDialogNodes {
   async targetWorkspace (pageLimitNumber: number): Promise<DialogNode[]> {

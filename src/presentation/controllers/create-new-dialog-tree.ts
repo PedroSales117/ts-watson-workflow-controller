@@ -1,5 +1,5 @@
 import { badRequest, sucessResponse } from '../helpers/http-helper'
-import { ListWorkspaceDialogNodes, getImportNode, getEntryPointNode, getExportedNodes, getMultipleResponseNodes, updateTargetWorkspaceDialogTree } from './index'
+import { ListWorkspaceDialogNodes, getImportNode, getEntryPointNode, getExportedNodes, getMultipleResponseNodes, updateTargetWorkspaceDialogTree } from '../helpers/index'
 
 export async function updateWorkspaceDialogTree (): Promise<any> {
   try {

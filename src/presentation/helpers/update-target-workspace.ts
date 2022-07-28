@@ -1,8 +1,8 @@
 import { DialogNode } from 'ibm-watson/assistant/v1'
 import { WATSON_ASSISTANT_TARGET_WORKSPACE_ID } from '../config'
 import { MissingWorkspaceParamError } from '../errors'
-import { createAssistantV1 } from '../helpers/assistant'
-import { badRequest } from '../helpers/http-helper'
+import { createAssistantV1 } from './assistant'
+import { badRequest } from './http-helper'
 
 export async function updateTargetWorkspaceDialogTree (targetNodesList: DialogNode[], importNode: DialogNode, entryPointNode: DialogNode, nodesToExportList: DialogNode[], multipleConditionedResponseList: any): Promise<any> {
   try {
