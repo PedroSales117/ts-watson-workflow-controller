@@ -5,6 +5,8 @@ export function getExportedNodes (sourceNodesList: DialogNode[]): any {
   try {
     return sourceNodesList?.filter((node: DialogNode) => {
       return node?.title?.toLowerCase().includes('[export]')
+    }).map(node => {
+      return JSON.parse(JSON.stringify(node).replace('[EXPORT]', ''))
     })
   } catch (Error) {
     return badRequest(Error)
