@@ -18,8 +18,10 @@ export async function updateTargetWorkspaceDialogTree (targetNodesList: DialogNo
       return badRequest(new MissingWorkspaceParamError('[nodesToExport]'))
     }
 
-    /// ------------Sets the entry point's previous_sibling with the node id of target workspace last node------ ///
-    entryPointNode.previous_sibling = importNode?.dialog_node
+    /// ------------Make new dialog tree be export on top of import node------ ///
+    entryPointNode.previous_sibling = importNode?.previous_sibling
+    importNode.previous_sibling = entryPointNode?.dialog_node
+
     const dialogTreeToExport = targetNodesList.concat(entryPointNode, nodesToExportList, multipleConditionedResponseList)
 
     return await createAssistantV1.updateWorkspace({
