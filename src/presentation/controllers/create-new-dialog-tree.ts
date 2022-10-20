@@ -1,16 +1,18 @@
+import { DialogNode } from 'ibm-watson/assistant/v1'
 import { badRequest } from '../helpers/http-helper'
-import { ListWorkspaceDialogNodes, getImportNode, getEntryPointNode, getExportedNodes, getMultipleResponseNodes, updateTargetWorkspaceDialogTree } from '../helpers/index'
+import { ListWorkspaceDialogNodes, getImportNode, getNodesToExport, updateTargetWorkspaceDialogTree } from '../helpers/index'
 
-export async function updateWorkspaceDialogTree (): Promise<any> {
+export async function updateWorkspaceDialogTree (parentNodeId: string, nodesPagination: number, importNodeId: string): Promise<any> {
   try {
-    const targetNodesList = await new ListWorkspaceDialogNodes().targetWorkspace(100000)
-    const sourceNodesList = await new ListWorkspaceDialogNodes().sourceWorkspace(100000)
-    const importNode = getImportNode(targetNodesList)
-    const entryPointNode = getEntryPointNode(sourceNodesList)
-    const nodesToExportList = getExportedNodes(sourceNodesList)
-    const multipleConditionedResponseList = getMultipleResponseNodes(sourceNodesList, nodesToExportList)
+    const targetNodesList = await new ListWorkspaceDialogNodes().targetWorkspace(nodesPagination)
+    const sourceNodesList = await new ListWorkspaceDialogNodes().sourceWorkspace(nodesPagination)
 
-    return await updateTargetWorkspaceDialogTree(targetNodesList, importNode, entryPointNode, nodesToExportList, multipleConditionedResponseList)
+    const importNode: any = getImportNode(importNodeId, targetNodesList)
+    const nodesToExportList: any[] = getNodesToExport(parentNodeId, sourceNodesList)
+
+    const entryPointNode = nodesToExportList.find((node: DialogNode) => node.dialog_node === parentNodeId)
+
+    return await updateTargetWorkspaceDialogTree(targetNodesList, importNode, entryPointNode, nodesToExportList)
   } catch (Error) {
     return badRequest(Error)
   }

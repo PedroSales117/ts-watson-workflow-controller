@@ -2,9 +2,10 @@ import { DialogNode } from 'ibm-watson/assistant/v1'
 import { WATSON_ASSISTANT_TARGET_WORKSPACE_ID } from '../config'
 import { MissingWorkspaceParamError } from '../errors'
 import { createAssistantV1 } from './assistant'
+import { changePreviousSibling } from './change-previous-sibling'
 import { badRequest, sucessResponse } from './http-helper'
 
-export async function updateTargetWorkspaceDialogTree (targetNodesList: DialogNode[], importNode: DialogNode, entryPointNode: DialogNode, nodesToExportList: DialogNode[], multipleConditionedResponseList: any): Promise<any> {
+export async function updateTargetWorkspaceDialogTree (targetNodesList: DialogNode[], importNode: DialogNode, entryPointNode: DialogNode, nodesToExportList: DialogNode[]): Promise<any> {
   try {
     if (!importNode) {
       return badRequest(new MissingWorkspaceParamError('[import]'))
@@ -18,11 +19,9 @@ export async function updateTargetWorkspaceDialogTree (targetNodesList: DialogNo
       return badRequest(new MissingWorkspaceParamError('[nodesToExport]'))
     }
 
-    /// ------------Make new dialog tree be export on top of import node------ ///
-    entryPointNode.previous_sibling = importNode?.previous_sibling
-    importNode.previous_sibling = entryPointNode?.dialog_node
+    changePreviousSibling(entryPointNode, importNode)
 
-    const dialogTreeToExport = targetNodesList.concat(entryPointNode, nodesToExportList, multipleConditionedResponseList)
+    const dialogTreeToExport = targetNodesList.concat(nodesToExportList)
 
     return await createAssistantV1.updateWorkspace({
       workspaceId: WATSON_ASSISTANT_TARGET_WORKSPACE_ID,
