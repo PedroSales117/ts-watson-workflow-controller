@@ -1,5 +1,5 @@
 import { DialogNode } from 'ibm-watson/assistant/v1'
-import { badRequest } from '../helpers/http-helper'
+import { badRequest } from '../http-helper'
 
 export function getImportNode (importNodeId: string, targetNodesList: DialogNode[]): any {
   try {

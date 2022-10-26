@@ -15,3 +15,8 @@ export const sucessResponse = (response: any): HttpResponse => ({
   statusCode: 200,
   body: response
 })
+
+export const notFoundError = (response: any): HttpResponse => ({
+  statusCode: 404,
+  body: response
+})

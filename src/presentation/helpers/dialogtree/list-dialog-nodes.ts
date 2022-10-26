@@ -1,11 +1,11 @@
 import { DialogNode } from 'ibm-watson/assistant/v1'
-import { createAssistantV1 } from './assistant'
-import { WATSON_ASSISTANT_TARGET_WORKSPACE_ID, WATSON_ASSISTANT_SOURCE_WORKSPACE_ID } from '../config'
+import { createTargetAssistantV1, createSourceAssistantV1 } from '../workspace/create-assistant'
+import { WATSON_TARGET_WORKSPACE_ID, WATSON_SOURCE_WORKSPACE_ID } from '../../config'
 
 export class ListWorkspaceDialogNodes {
   async targetWorkspace (pageLimitNumber: number): Promise<DialogNode[]> {
-    return await createAssistantV1?.listDialogNodes({
-      workspaceId: WATSON_ASSISTANT_TARGET_WORKSPACE_ID,
+    return await createTargetAssistantV1?.listDialogNodes({
+      workspaceId: WATSON_TARGET_WORKSPACE_ID,
       pageLimit: pageLimitNumber
     })
       .then((targetWorkspaceNodes: any) => {
@@ -14,8 +14,8 @@ export class ListWorkspaceDialogNodes {
   }
 
   async sourceWorkspace (pageLimitNumber: number): Promise<DialogNode[]> {
-    return await createAssistantV1?.listDialogNodes({
-      workspaceId: WATSON_ASSISTANT_SOURCE_WORKSPACE_ID,
+    return await createSourceAssistantV1?.listDialogNodes({
+      workspaceId: WATSON_SOURCE_WORKSPACE_ID,
       pageLimit: pageLimitNumber
     })
       .then((sourceWorkspaceNodes: any) => {
