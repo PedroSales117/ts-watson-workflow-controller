@@ -1,11 +1,11 @@
 import { PORT } from './presentation/config'
 import { app } from './presentation/config/express.config'
-import { createDialogTreeRouter } from './presentation/routes/add-dialog-tree-router'
-import { updateDialogNodeRouter } from './presentation/routes/update-dialog-node'
+import { createDialogTreeRouter } from './presentation/routes/dialogtree/add-dialog-tree-router'
+import { deleteRouter, updateRouter, validateJumpRouter } from './presentation/routes/nodes/index'
 
 app.listen(PORT, () => {
   console.log(`Listen on https://localhost:${PORT}`)
 })
 
 app.use('/dialogtree', createDialogTreeRouter)
-app.use('/nodes', updateDialogNodeRouter)
+app.use('/nodes', updateRouter, deleteRouter, validateJumpRouter)
