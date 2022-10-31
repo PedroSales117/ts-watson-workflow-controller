@@ -26,26 +26,25 @@ Para poder usar essa aplicação você precisará criar um arquivo `.env` com as
 
 ```.env
 PORT=8080
-WATSON_API_KEY=''
-WATSON_ASSISTANT_TARGET_WORKSPACE_ID=''
-WATSON_ASSISTANT_SOURCE_WORKSPACE_ID=''
-WATSON_SERVICE_URL=''
+WATSON_TARGET_WORKSPACE_ID=''
+WATSON_TARGET_WORKSPACE_VERSION=''
+WATSON_TARGET_WORKSPACE_API_KEY=''
+WATSON_TARGET_WORKSPACE_SERVICE_URL=''
+
+WATSON_SOURCE_WORKSPACE_ID=''
+WATSON_SOURCE_WORKSPACE_VERSION=''
+WATSON_SOURCE_WORKSPACE_API_KEY=''
+WATSON_SOURCE_WORKSPACE_SERVICE_URL=''
 ```
 
-`WATSON_ASSISTANT_SOURCE_WORKSPACE_ID` representa o id da workspace onde sua árvore de diálogo será **exportada** que chamaremos de source.
-`WATSON_ASSISTANT_TARGET_WORKSPACE_ID` representa o id da workspace para onde sua árvore de diálogo será **importada** que chamaremos de target.
+`SOURCE` representa a workspace onde sua árvore de diálogo será **exportada**.
+`TARGET` representa a workspace para onde sua árvore de diálogo será **importada**.
 
-Para entender onde `WATSON_API_KEY` e `WATSON_SERVICE_URL` devem ser usados corretamente ​​e onde encontrar suas credenciais do Watson Assistant, verifique [IBM Cloud Watson node SDK](https://github.com/watson-developer-cloud/node-sdk#assistant-v1 ).
+Para entender onde `API_KEY` e `SERVICE_URL` devem ser usados corretamente ​​e onde encontrar suas credenciais do Watson Assistant, verifique [IBM Cloud Watson node SDK](https://github.com/watson-developer-cloud/node-sdk#assistant-v1 ).
 
 ## Uso
 
-Com sua árvore de diálogo criada e seu arquivo `.env` pronto, você precisará adicionar o texto `[ENTRYPOINT]` ao nó que inicia sua árvore de diálogo e então `[EXPORT]` em **todos** os nós que você deseja exportar com ele. Então, na workspace que receberá a árvore de diálogo exportada, adicione um **novo nó** chamado `[IMPORT]` **abaixo** do último nó da área de trabalho (por exemplo, nó Qualquer outra coisa). Deve ser como as imagens abaixo.  
-**Source workspace(que envia o fluxo)**:    
-![Exportar nós](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/export_nodes.png?raw=true)    
-**Target workspace(que recebe o fluxo)**:    
-![Importar](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/import.png?raw=true)
-
-Após definir seu arquivo `.env`, seu `entry point node`, o `import node` e os `nodes que serão exportados`, você precisa executar os comandos:
+Com sua árvore de diálogo criada e seu arquivo `.env` pronto, você irá coletar o **dialog_node** do nó inicial da arvore que você quer exportar. Lembre-se de anota-lo em algum lugar.
 
 ```bash
 npm run build
@@ -55,14 +54,25 @@ npm run build
 npm start
 ```
 
-Acessando a rota `/dialogtree/add` e fazendo a requisição **POST**.</br>
-![Importar](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/postman_request.png?raw=true)
-E simples assim **toda a sua árvore de diálogo** é exportada de um espaço de trabalho para outro sem nenhum retrabalho pesado! :)
-![Importar](https://github.com/PedroSales117/node-ts-watson-add-dialog-service/blob/feature/addCreateDialogTree/readme/updated_dialog_tree.png?raw=true)
+Acessando a rota `/dialogtree/add` e realizando uma requisição **POST** com o body desta forma abaixo, onde `parentNodeId` é o nó em que se inicia o fluxo e `importNodeId` é o ultimo nó da sua arvore:
+
+```json
+{
+    "parentNodeId": "node_9_1666301668638",
+    "importNodeId": "Anything else"
+}
+```
+
+> se sua `target` workspace for igual a sua `source` workspace apenas não contendo este novo fluxo que deseja exportar, o fluxo será exportado no exato lugar que ele se encontra na `target` workspace.
+
+| :warning: Lembre se que se jumps são realizados para nós que não estão sendo exportados, esta aplicação irá deleta-los para evitar problemas decorridos na exportação para `target` workspace(Essa validação não afeta o fluxo original na `source` workspace). |
+| --- |
+
+E simples assim **toda a sua árvore de diálogo** é exportada de uma workspace para outra sem nenhum retrabalho pesado! :)
 
 ## Erros
 
-Quando o texto `[IMPORT]` está mal definido na workspace de destino.</br>
+Quando o codigo do ultimo nó esta ausente na workspace de destino.</br>
 
 ```json
 {
@@ -71,7 +81,7 @@ Quando o texto `[IMPORT]` está mal definido na workspace de destino.</br>
 }
 ```
 
-Quando o texto do `[ENTRYPOINT]` está mal definido no espaço de trabalho de origem.</br>
+Quando o codigo do parentNode não é encontrado na workspace de origem.</br>
 
 ```json
 {
