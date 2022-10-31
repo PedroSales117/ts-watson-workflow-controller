@@ -58,7 +58,7 @@ Acessando a rota `/dialogtree/add` e realizando uma requisição **POST** com o 
 
 ```json
 {
-    "parentNodeId": "node_9_1666301668638",
+    "parentNodeId": "node_9_9999999999",
     "importNodeId": "Anything else"
 }
 ```
