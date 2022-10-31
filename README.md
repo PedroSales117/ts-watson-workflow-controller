@@ -46,6 +46,8 @@ Para entender onde `API_KEY` e `SERVICE_URL` devem ser usados corretamente ​�
 
 Com sua árvore de diálogo criada e seu arquivo `.env` pronto, você irá coletar o **dialog_node** do nó inicial da arvore que você quer exportar. Lembre-se de anota-lo em algum lugar.
 
+Então rode estes comandos nesta ordem:
+
 ```bash
 npm run build
 ```
