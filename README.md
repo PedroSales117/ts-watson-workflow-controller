@@ -56,7 +56,7 @@ npm run build
 npm start
 ```
 
-Acessando a rota `/dialogtree/add` e realizando uma requisição **POST** com o body desta forma abaixo, onde `parentNodeId` é o nó em que se inicia o fluxo e `importNodeId` é o ultimo nó da sua arvore:
+Acessando a rota `/dialogtree/add` e realizando uma requisição **POST** com o body desta forma abaixo, onde `parentNodeId` é o nó em que se inicia o fluxo e `importNodeId` é o ultimo nó da arvore inteira de dialogo do Watson, neste exemplo sendo por padrão o `Anything else`:
 
 ```json
 {
