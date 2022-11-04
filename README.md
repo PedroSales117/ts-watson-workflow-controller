@@ -3,7 +3,7 @@
 • [Exportar](#exportar)</br>
 • [Atualizar](#atualizar)</br>
 • [Deletar](#deletar)</br>
-• [Jumps](#jumps)</br>
+• [Verificar jumps](#jumps)</br>
 
 | :warning: **Sempre** certifique-se de fazer um backup de suas workspaces antes de usar qualquer chamada de API do IBM Cloud SDK! |
 | --- |
@@ -220,7 +220,7 @@ Retorno:
 
 </details></br>
 
-## Jumps
+## Verificar jumps
 
 <details> <summary> Ver mais... </summary>
 
