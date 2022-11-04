@@ -1,9 +1,9 @@
 # Watson Dialog Service
 
-• [Exportar](#exportar)
-• [Atualizar](#atualizar)
-• [Deletar](#deletar)
-• [Jumps](#jumps)
+• [Exportar](#exportar)</br>
+• [Atualizar](#atualizar)</br>
+• [Deletar](#deletar)</br>
+• [Jumps](#jumps)</br>
 
 | :warning: **Sempre** certifique-se de fazer um backup de suas workspaces antes de usar qualquer chamada de API do IBM Cloud SDK! |
 | --- |
