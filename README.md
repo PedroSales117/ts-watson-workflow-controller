@@ -224,7 +224,7 @@ Retorno:
 
 <details> <summary> Ver mais... </summary>
 
-Para validar jumps dentro de um fluxo especifico você utilizará:
+Para verificar jumps dentro de um fluxo especifico você utilizará:
 
 .env
 
