@@ -119,7 +119,7 @@ Para atualizar um nó especifico você utilizará:
 
 .env
 
-```json
+```.env
 PORT=8080
 WATSON_TARGET_WORKSPACE_ID=''
 WATSON_TARGET_WORKSPACE_VERSION=''
@@ -188,7 +188,7 @@ Para deletar um nó especifico você utilizará:
 
 .env
 
-```json
+```.env
 PORT=8080
 WATSON_TARGET_WORKSPACE_ID=''
 WATSON_TARGET_WORKSPACE_VERSION=''
@@ -228,7 +228,7 @@ Para validar jumps dentro de um fluxo especifico você utilizará:
 
 .env
 
-```json
+```.env
 PORT=8080
 WATSON_TARGET_WORKSPACE_ID=''
 WATSON_TARGET_WORKSPACE_VERSION=''
@@ -253,7 +253,6 @@ body:
 Retorno:
 
 ```json
-
 {
     "status": 200,
     "body": {
@@ -270,7 +269,6 @@ Retorno:
         ]
     }
 }
-
 ```
 
 </details></br>
