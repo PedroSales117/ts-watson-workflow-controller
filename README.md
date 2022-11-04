@@ -1,14 +1,15 @@
 # Watson Dialog Service
 
-• [Exportar](#exportar)</br>
-• [Atualizar](#atualizar)</br>
-• [Deletar](#deletar)</br>
-• [Verificar jumps](#verificar-jumps)</br>
+Este serviço oferece rotas para você exportar, atualizar ou deletar nós e fluxos completos sem precisar realizar nenhuma grande ou trabalhosa alteração diretamente no Watson Assistant. Abaixo você vai encontrar um passo-a-passo para cada rota, espero que seja-lhe util!
+
+- [Exportar](#exportar)
+- [Atualizar](#atualizar)
+- [Deletar](#deletar)
+- [Verificar jumps](#verificar-jumps)
+
 
 | :warning: **Sempre** certifique-se de fazer um backup de suas workspaces antes de usar qualquer chamada de API do IBM Cloud SDK! |
 | --- |
-
-Este serviço oferece rotas para você exportar, atualizar ou deletar nós e fluxos completos sem precisar realizar nenhuma grande ou trabalhosa alteração diretamente no Watson Assistant. Abaixo você vai encontrar um passo-a-passo para cada rota, espero que seja-lhe util!
 
 ## Instalação
 
@@ -44,15 +45,6 @@ WATSON_SOURCE_WORKSPACE_SERVICE_URL=''
 
 Para entender onde `API_KEY` e `SERVICE_URL` devem ser usados corretamente ​​e onde encontrar suas credenciais do Watson Assistant, verifique [IBM Cloud Watson node SDK](https://github.com/watson-developer-cloud/node-sdk#assistant-v1 ).
 
-## Exportar
-
-<details> <summary> Ver mais... </summary>
-Exporte uma árvore de diálogo inteira em uma workspace diferente a partir da qual a árvore foi originalmente criada.
-
-## Uso
-
-Com sua árvore de diálogo criada e seu arquivo `.env` pronto, você irá coletar o **dialog_node** do nó inicial da arvore que você quer exportar. Lembre-se de anota-lo em algum lugar.
-
 Então rode estes comandos nesta ordem:
 
 ```bash
@@ -63,7 +55,30 @@ npm run build
 npm start
 ```
 
-Acessando a rota `/dialogtree/add` e realizando uma requisição **POST** com o body desta forma abaixo, onde `parentNodeId` é o nó em que se inicia o fluxo e `importNodeId` é o ultimo nó da arvore inteira de dialogo do Watson, neste exemplo sendo por padrão o `Anything else`:
+Se tudo estiver ok, você receberá em seu terminal esta mensagem:
+
+```powershell
+Listen on https://localhost:8080
+```
+
+**https://localhost:8080** será sua URL padrão para acessar as rotas listadas abaixo.
+
+## Exportar
+
+<details> <summary> Ver mais... </summary>
+
+| :memo: Essa rota utiliza as credencias **TARGET** do seu `.env` |
+| --- |
+
+Exporte uma árvore de diálogo inteira em uma workspace diferente a partir da qual a árvore foi originalmente criada.
+
+### ROTA
+`/dialogtree/add`
+
+### METODO
+`POST`
+
+### BODY
 
 ```json
 {
@@ -72,14 +87,35 @@ Acessando a rota `/dialogtree/add` e realizando uma requisição **POST** com o 
 }
 ```
 
-> se sua `target` workspace for igual a sua `source` workspace apenas não contendo este novo fluxo que deseja exportar, o fluxo será exportado no exato lugar que ele se encontra na `target` workspace.
+- **parentNodeId**: Nó em que se inicia o fluxo
+- **importNodeId**: Ultimo nó de dialogo de sua skill (sendo por padrão o _Anything else_)
+
+### RETORNO
+
+```json
+{
+    "status": 200,
+    "body": "nodes add to workspace: <Nome da workspace>"
+}
+```
+
+> Se sua `target` workspace for igual a sua `source` workspace apenas não possuindo o novo fluxo que deseja exportar, o fluxo será exportado no exato lugar que ele se encontra na `target` workspace.
 
 | :warning: Lembre se que se jumps são realizados para nós que não estão sendo exportados, esta aplicação irá deleta-los para evitar problemas decorridos na exportação para `target` workspace(Essa validação não afeta o fluxo original na `source` workspace). |
 | --- |
 
-E simples assim **toda a sua árvore de diálogo** é exportada de uma workspace para outra sem nenhum retrabalho pesado! :)
+E simples assim **toda a sua árvore de diálogo** é exportada de uma workspace para outra sem nenhum retrabalho pesado!
 
-## Erros
+## ERROS
+
+VPN ligada
+
+```json
+{
+    "status": 400,
+    "body": "The connection failed because the SSL certificate is not valid. To use a self-signed certificate, set the `disableSslVerification` parameter in the constructor options."
+}
+```
 
 Quando o codigo do ultimo nó esta ausente na workspace de destino.</br>
 
@@ -99,12 +135,12 @@ Quando o codigo do parentNode não é encontrado na workspace de origem.</br>
 }
 ```
 
-Erros de árvore invalida e colisões ocorrerão quando alguns de seus nós de exportação estiverem mal definidos na workspace de origem ou já existirem na sua workspace de destino.</br>
+Erros de árvore invalida e colisões ocorrerão quando alguns de seus nós de exportação estiverem mal definidos na source workspace ou já existirem na sua target workspace.</br>
 
 ```json
 {
     "status": 400,
-    "error": "Invalid tree detected. Dialog node 'node_1_1658504403239' is poorly defined. Check its parent or previous_sibling value.",
+    "error": "Invalid tree detected. Dialog node 'node_1_121212121212' is poorly defined. Check its parent or previous_sibling value.",
     "message": "Bad Request"
 }
 ```
@@ -115,23 +151,18 @@ Erros de árvore invalida e colisões ocorrerão quando alguns de seus nós de e
 
 <details> <summary> Ver mais... </summary>
 
+| :memo: Essa rota utiliza as credencias **TARGET** do seu `.env` |
+| --- |
+
 Para atualizar um nó especifico você utilizará:
 
-.env
+### ROTA
+`nodes/update`
 
-```.env
-PORT=8080
-WATSON_TARGET_WORKSPACE_ID=''
-WATSON_TARGET_WORKSPACE_VERSION=''
-WATSON_TARGET_WORKSPACE_API_KEY=''
-WATSON_TARGET_WORKSPACE_SERVICE_URL=''
-```
+### METODO
+`POST`
 
-Rota: `nodes/update`
-
-Metodo: `POST`
-
-body:
+### BODY
 
 ```json
 {
@@ -141,36 +172,39 @@ body:
 }
 ```
 
-**dialogNodeId**: Id do nó de dialogo.</br></br>
-**attributeToModifyName**: Nome do atributo a ser modificado.</br>
+**dialogNodeId**: Id do nó de dialogo.
 
-<li>newContext</li>
-<li>newDialogNode</li>
-<li>newDescription</li>
-<li>newConditions</li>
-<li>newParent</li>
-<li>newPreviousSibling</li>
-<li>newOutput</li>
-<li>newMetadata</li>
-<li>newNextStep</li>
-<li>newTitle</li>
-<li>newType</li>
-<li>newEventName</li>
-<li>newVariable</li>
-<li>newActions</li>
-<li>newDigressIn</li>
-<li>newDigressOut</li>
-<li>newDigressOutSlots</li>
-<li>newUserLabel</li>
-<li>newDisambiguationOptOut</li>
-<li>includeAudit</li></br>
+**attributeToModifyName**: Nome do atributo a ser modificado.
 
-**toModifyData**: Nova informação que será utilizada para atualizar o nó.</br>
-<li>string</li>
-<li>int</li>
-<li>object</li>
-<li>array</li></br></br>
-Retorno:
+- newContext
+- newDialogNode
+- newDescription
+- newConditions
+- newParent
+- newPreviousSibling
+- newOutput
+- newMetadata
+- newNextStep
+- newTitle
+- newType
+- newEventName
+- newVariable
+- newActions
+- newDigressIn
+- newDigressOut
+- newDigressOutSlots
+- newUserLabel
+- newDisambiguationOptOut
+- includeAudit
+
+**toModifyData**: Nova informação que será utilizada para atualizar o nó.
+
+- string
+- int
+- object
+- array
+
+### RETORNO
 
 ```json
 {
@@ -178,29 +212,24 @@ Retorno:
 }
 ```
 
-</details></br>
+</details>
 
 ## Deletar
 
-<details> <summary> Ver mais... </summary>
+<details><summary> Ver mais... </summary>
+
+| :memo: Essa rota utiliza as credencias **TARGET** do seu `.env` |
+| --- |
 
 Para deletar um nó especifico você utilizará:
 
-.env
+### ROTA
+`nodes/delete`
 
-```.env
-PORT=8080
-WATSON_TARGET_WORKSPACE_ID=''
-WATSON_TARGET_WORKSPACE_VERSION=''
-WATSON_TARGET_WORKSPACE_API_KEY=''
-WATSON_TARGET_WORKSPACE_SERVICE_URL=''
-```
+### METODO
+`DELETE`
 
-Rota: `nodes/delete`
-
-Metodo: `DELETE`
-
-body:
+### BODY
 
 ```json
 {
@@ -210,7 +239,7 @@ body:
 
 **dialogNodeId**: Id do nó de dialogo.</br></br>
 
-Retorno:
+### RETORNO:
 
 ```json
 {
@@ -224,23 +253,20 @@ Retorno:
 
 <details> <summary> Ver mais... </summary>
 
+| :memo: Essa rota utiliza as credencias **TARGET** do seu `.env` |
+| --- |
+
 Para verificar jumps dentro de um fluxo especifico você utilizará:
 
-.env
 
-```.env
-PORT=8080
-WATSON_TARGET_WORKSPACE_ID=''
-WATSON_TARGET_WORKSPACE_VERSION=''
-WATSON_TARGET_WORKSPACE_API_KEY=''
-WATSON_TARGET_WORKSPACE_SERVICE_URL=''
-```
 
-Rota: `nodes/jumps`
+### ROTA
+`nodes/jumps`
 
-Metodo: `GET`
+### METODO
+`GET`
 
-body:
+### BODY
 
 ```json
 {
@@ -250,7 +276,7 @@ body:
 
 **dialogNodesId**: Id do nó de dialogo.</br></br>
 
-Retorno:
+### RETORNO:
 
 ```json
 {
