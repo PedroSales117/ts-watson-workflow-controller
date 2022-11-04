@@ -1,9 +1,14 @@
-# Adicione uma árvore de diálogo inteira ao seu espaço de trabalho
+# Watson Dialog Service
 
-Exporte uma árvore de diálogo inteira em uma workspace diferente a partir da qual a árvore foi originalmente criada.
+1. [Exportar](#exportar)
+1. [Atualizar](#atualizar)
+1. [Deletar](#deletar)
+1. [Jumps](#jumps)
 
 | :warning: **Sempre** certifique-se de fazer um backup de suas workspaces antes de usar qualquer chamada de API do IBM Cloud SDK! |
 | --- |
+
+Este serviço oferece rotas para você exportar, atualizar ou deletar nós e fluxos completos sem precisar realizar nenhuma grande ou trabalhosa alteração diretamente no Watson Assistant. Abaixo você vai encontrar um passo-a-passo para cada rota, espero que seja-lhe util!
 
 ## Instalação
 
@@ -14,12 +19,9 @@ npm install
 ```
 
 Lembre-se de instalar tambem o compilador typescript e dentro do seu projeto configura-lo.
-```bash
-npm install -g typescript
-```
 
 ```bash
-tsc --init
+npm install -g typescript
 ```
 
 Para poder usar essa aplicação você precisará criar um arquivo `.env` com as seguintes variáveis.
@@ -37,10 +39,15 @@ WATSON_SOURCE_WORKSPACE_API_KEY=''
 WATSON_SOURCE_WORKSPACE_SERVICE_URL=''
 ```
 
-`SOURCE` representa a workspace onde sua árvore de diálogo será **exportada**.
-`TARGET` representa a workspace para onde sua árvore de diálogo será **importada**.
+`SOURCE` representa a workspace origem.
+`TARGET` representa a workspace alvo.
 
 Para entender onde `API_KEY` e `SERVICE_URL` devem ser usados corretamente ​​e onde encontrar suas credenciais do Watson Assistant, verifique [IBM Cloud Watson node SDK](https://github.com/watson-developer-cloud/node-sdk#assistant-v1 ).
+
+## Exportar
+
+<details> <summary> Ver mais... </summary>
+Exporte uma árvore de diálogo inteira em uma workspace diferente a partir da qual a árvore foi originalmente criada.
 
 ## Uso
 
@@ -102,6 +109,170 @@ Erros de árvore invalida e colisões ocorrerão quando alguns de seus nós de e
 }
 ```
 
-## Contributing
+</details></br>
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+## Atualizar
+
+<details> <summary> Ver mais... </summary>
+
+Para atualizar um nó especifico você utilizará:
+
+.env
+
+```json
+PORT=8080
+WATSON_TARGET_WORKSPACE_ID=''
+WATSON_TARGET_WORKSPACE_VERSION=''
+WATSON_TARGET_WORKSPACE_API_KEY=''
+WATSON_TARGET_WORKSPACE_SERVICE_URL=''
+```
+
+Rota: `nodes/update`
+
+Metodo: `POST`
+
+body:
+
+```json
+{
+  "dialogNodeId": "",
+  "toModifyData": "",
+  "attributeToModifyName": ""
+}
+```
+
+**dialogNodeId**: Id do nó de dialogo.</br></br>
+**attributeToModifyName**: Nome do atributo a ser modificado.
+<li>newContext</li>
+<li>newDialogNode</li>
+<li>newDescription</li>
+<li>newConditions</li>
+<li>newParent</li>
+<li>newPreviousSibling</li>
+<li>newOutput</li>
+<li>newMetadata</li>
+<li>newNextStep</li>
+<li>newTitle</li>
+<li>newType</li>
+<li>newEventName</li>
+<li>newVariable</li>
+<li>newActions</li>
+<li>newDigressIn</li>
+<li>newDigressOut</li>
+<li>newDigressOutSlots</li>
+<li>newUserLabel</li>
+<li>newDisambiguationOptOut</li>
+<li>includeAudit</li></br>
+
+**toModifyData**: Nova informação que será utilizada para atualizar o nó.</br>
+<li>string</li>
+<li>int</li>
+<li>object</li>
+<li>array</li></br></br>
+
+Retorno:
+
+```json
+{
+    "statusCode": "200",
+}
+```
+
+</details></br>
+
+## Deletar
+
+<details> <summary> Ver mais... </summary>
+
+Para deletar um nó especifico você utilizará:
+
+.env
+
+```json
+PORT=8080
+WATSON_TARGET_WORKSPACE_ID=''
+WATSON_TARGET_WORKSPACE_VERSION=''
+WATSON_TARGET_WORKSPACE_API_KEY=''
+WATSON_TARGET_WORKSPACE_SERVICE_URL=''
+```
+
+Rota: `nodes/delete`
+
+Metodo: `DELETE`
+
+body:
+
+```json
+{
+  "dialogNodeId": ""
+}
+```
+
+**dialogNodeId**: Id do nó de dialogo.</br></br>
+
+Retorno:
+
+```json
+{
+    "statusCode": "200",
+}
+```
+
+</details></br>
+
+## Jumps
+
+<details> <summary> Ver mais... </summary>
+
+Para validar jumps dentro de um fluxo especifico você utilizará:
+
+.env
+
+```json
+PORT=8080
+WATSON_TARGET_WORKSPACE_ID=''
+WATSON_TARGET_WORKSPACE_VERSION=''
+WATSON_TARGET_WORKSPACE_API_KEY=''
+WATSON_TARGET_WORKSPACE_SERVICE_URL=''
+```
+
+Rota: `nodes/jumps`
+
+Metodo: `GET`
+
+body:
+
+```json
+{
+  "dialogNodesId": ""
+}
+```
+
+**dialogNodesId**: Id do nó de dialogo.</br></br>
+
+Retorno:
+
+```json
+
+{
+    "status": 200,
+    "body": {
+        "dialogTreeJumpsDetails": [
+            {
+                "jump_details": {
+                    "to": "node_1_1111111111111",
+                    "from": {
+                        "title": "Node Title",
+                        "id": "node_1_1111111111111"
+                    }
+                }
+            }
+        ]
+    }
+}
+
+```
+
+</details></br>
+
+Para feedbacks, sugestões ou duvidas por favor entre em contato por pedro.sales@compasso.com.br
