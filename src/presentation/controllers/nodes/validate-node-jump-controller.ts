@@ -6,7 +6,8 @@ import { getJumpsFromDialogTree } from '../../helpers/dialogtree/get-jumps-from-
 
 export async function validateJump (nodesId: string): Promise<any> {
   try {
-    const dialogNodes = await createTargetAssistantV1.listDialogNodes({ workspaceId: WATSON_TARGET_WORKSPACE_ID, pageLimit: 100000 })
+    const dialogNodes = await createTargetAssistantV1
+      .listDialogNodes({ workspaceId: WATSON_TARGET_WORKSPACE_ID, pageLimit: 100000 })
       .then(response => {
         return response.result.dialog_nodes
       })

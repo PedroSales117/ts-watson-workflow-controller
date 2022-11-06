@@ -19,10 +19,10 @@ validateJumpRouter.get('/jumps', (request, response) => {
     }
 
     void validateJump(dialogNodesId)
-      .then((updateDialogNodeResponse: any) => {
-        return response.status(updateDialogNodeResponse.statusCode).json({
-          status: updateDialogNodeResponse.statusCode,
-          body: updateDialogNodeResponse.body
+      .then((validateJumpResponse: any) => {
+        return response.status(validateJumpResponse.statusCode).json({
+          status: validateJumpResponse.statusCode,
+          body: validateJumpResponse.body
         })
       })
   } catch (Error) {
