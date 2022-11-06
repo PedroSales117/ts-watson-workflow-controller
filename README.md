@@ -7,7 +7,6 @@ Este serviço oferece rotas para você exportar, atualizar ou deletar nós e flu
 - [Deletar](#deletar)
 - [Verificar jumps](#verificar-jumps)
 
-
 | :warning: **Sempre** certifique-se de fazer um backup de suas workspaces antes de usar qualquer chamada de API do IBM Cloud SDK! |
 | --- |
 
@@ -63,6 +62,10 @@ Listen on https://localhost:8080
 
 **https://localhost:8080** será sua URL padrão para acessar as rotas listadas abaixo.
 
+## Árvore de diálogo
+
+<details><summary> Ver mais... </summary>
+
 ## Exportar
 
 <details> <summary> Ver mais... </summary>
@@ -108,15 +111,6 @@ E simples assim **toda a sua árvore de diálogo** é exportada de uma workspace
 
 ## ERROS
 
-VPN ligada
-
-```json
-{
-    "status": 400,
-    "body": "The connection failed because the SSL certificate is not valid. To use a self-signed certificate, set the `disableSslVerification` parameter in the constructor options."
-}
-```
-
 Quando o codigo do ultimo nó esta ausente na workspace de destino.</br>
 
 ```json
@@ -146,6 +140,63 @@ Erros de árvore invalida e colisões ocorrerão quando alguns de seus nós de e
 ```
 
 </details></br>
+
+## Verificar jumps
+
+<details> <summary> Ver mais... </summary>
+
+| :memo: Essa rota utiliza as credencias **TARGET** do seu `.env` |
+| --- |
+
+Para verificar jumps dentro de um fluxo especifico você utilizará:
+
+
+
+### ROTA
+`nodes/jumps`
+
+### METODO
+`GET`
+
+### BODY
+
+```json
+{
+  "dialogNodesId": ""
+}
+```
+
+**dialogNodesId**: Id do nó de dialogo.</br></br>
+
+### RETORNO:
+
+```json
+{
+    "status": 200,
+    "body": {
+        "dialogTreeJumpsDetails": [
+            {
+                "jump_details": {
+                    "to": "node_1_1111111111111",
+                    "from": {
+                        "title": "Node Title",
+                        "id": "node_1_1111111111111"
+                    }
+                }
+            }
+        ]
+    }
+}
+```
+
+</details></br>
+
+</details>
+
+
+## Nós de diálogo
+
+<details><summary> Ver mais... </summary>
 
 ## Atualizar
 
@@ -249,7 +300,7 @@ Para deletar um nó especifico você utilizará:
 
 </details></br>
 
-## Verificar jumps
+## Criar
 
 <details> <summary> Ver mais... </summary>
 
@@ -257,8 +308,6 @@ Para deletar um nó especifico você utilizará:
 | --- |
 
 Para verificar jumps dentro de um fluxo especifico você utilizará:
-
-
 
 ### ROTA
 `nodes/jumps`
@@ -298,5 +347,7 @@ Para verificar jumps dentro de um fluxo especifico você utilizará:
 ```
 
 </details></br>
+
+</details>
 
 Para feedbacks, sugestões ou duvidas por favor entre em contato por pedro.sales@compasso.com.br
