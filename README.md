@@ -5,6 +5,7 @@ Este serviço oferece rotas para você exportar, atualizar ou deletar nós e flu
 - [Exportar](#exportar)
 - [Atualizar](#atualizar)
 - [Deletar](#deletar)
+- [Criar](#criar)
 - [Verificar jumps](#verificar-jumps)
 
 | :warning: **Sempre** certifique-se de fazer um backup de suas workspaces antes de usar qualquer chamada de API do IBM Cloud SDK! |
@@ -150,8 +151,6 @@ Erros de árvore invalida e colisões ocorrerão quando alguns de seus nós de e
 
 Para verificar jumps dentro de um fluxo especifico você utilizará:
 
-
-
 ### ROTA
 `nodes/jumps`
 
@@ -168,7 +167,7 @@ Para verificar jumps dentro de um fluxo especifico você utilizará:
 
 **dialogNodesId**: Id do nó de dialogo.</br></br>
 
-### RETORNO:
+### RETORNO
 
 ```json
 {
@@ -192,7 +191,6 @@ Para verificar jumps dentro de um fluxo especifico você utilizará:
 </details></br>
 
 </details>
-
 
 ## Nós de diálogo
 
@@ -307,23 +305,47 @@ Para deletar um nó especifico você utilizará:
 | :memo: Essa rota utiliza as credencias **TARGET** do seu `.env` |
 | --- |
 
-Para verificar jumps dentro de um fluxo especifico você utilizará:
+Para criar um nó de dialogo você utilizará:
 
 ### ROTA
-`nodes/jumps`
+`nodes/create`
 
 ### METODO
-`GET`
+`POST`
 
 ### BODY
 
 ```json
 {
-  "dialogNodesId": ""
+    "dialogNodeData": {
+        "conditions": "false",
+        "title": "Node automatic created",
+        "type": "standard"
+    }
 }
 ```
 
-**dialogNodesId**: Id do nó de dialogo.</br></br>
+**dialogNodeData**: Propriedades escolhidas para criar o seu nó de diálogo.
+
+- conditions
+- title
+- type
+- output
+- description
+- parent
+- previousSibling
+- context
+- metadata
+- nextStep
+- eventName
+- variable
+- actions
+- digressIn
+- digressOut
+- digressOutSlots
+- userLabel
+- disambiguationOptOut
+- includeAudit
 
 ### RETORNO:
 
@@ -331,20 +353,15 @@ Para verificar jumps dentro de um fluxo especifico você utilizará:
 {
     "status": 200,
     "body": {
-        "dialogTreeJumpsDetails": [
-            {
-                "jump_details": {
-                    "to": "node_1_1111111111111",
-                    "from": {
-                        "title": "Node Title",
-                        "id": "node_1_1111111111111"
-                    }
-                }
-            }
-        ]
+        "type": "standard",
+        "title": "Node automatic created",
+        "conditions": "false",
+        "dialog_node": "node_6c9da678-4b0e-45a6-9a65-0ddf27f4814f"
     }
 }
 ```
+
+> `dialog_node` é gerado automaticamente via UUID.
 
 </details></br>
 
