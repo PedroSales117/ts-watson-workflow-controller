@@ -7,7 +7,8 @@ export const createTargetAssistantV1 = new AssistantV1({
   authenticator: new IamAuthenticator({
     apikey: WATSON_TARGET_WORKSPACE_API_KEY
   }),
-  serviceUrl: WATSON_TARGET_WORKSPACE_SERVICE_URL
+  serviceUrl: WATSON_TARGET_WORKSPACE_SERVICE_URL,
+  disableSslVerification: true
 })
 
 export const createSourceAssistantV1 = new AssistantV1({
@@ -15,5 +16,6 @@ export const createSourceAssistantV1 = new AssistantV1({
   authenticator: new IamAuthenticator({
     apikey: WATSON_SOURCE_WORKSPACE_API_KEY
   }),
-  serviceUrl: WATSON_SOURCE_WORKSPACE_SERVICE_URL
+  serviceUrl: WATSON_SOURCE_WORKSPACE_SERVICE_URL,
+  disableSslVerification: true
 })
