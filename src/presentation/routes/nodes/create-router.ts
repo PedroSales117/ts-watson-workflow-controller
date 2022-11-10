@@ -1,7 +1,7 @@
 import { MissingParamError } from '../../errors'
 import { router } from '../../config/express.config'
 import { badRequest } from '../../helpers/http-helper'
-import { createNode } from '../../controllers/nodes/create-node-controller'
+import { createNode } from '../../controllers/nodes/create-controller'
 
 export const createRouter = router
 

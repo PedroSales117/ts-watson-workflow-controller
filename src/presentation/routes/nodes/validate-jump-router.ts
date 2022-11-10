@@ -1,7 +1,7 @@
 import { MissingParamError } from '../../errors'
 import { router } from '../../config/express.config'
 import { badRequest } from '../../helpers/http-helper'
-import { validateJump } from '../../controllers/nodes/validate-node-jump-controller'
+import { validateJump } from '../../controllers/nodes/validate-jump-controller'
 
 export const validateJumpRouter = router
 

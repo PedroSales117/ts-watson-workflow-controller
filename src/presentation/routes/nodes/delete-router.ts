@@ -1,7 +1,7 @@
 import { MissingParamError } from '../../errors'
 import { router } from '../../config/express.config'
 import { badRequest } from '../../helpers/http-helper'
-import { deleteNode } from '../../controllers/nodes/delete-node-controller'
+import { deleteNode } from '../../controllers/nodes/delete-controller'
 
 export const deleteRouter = router
 

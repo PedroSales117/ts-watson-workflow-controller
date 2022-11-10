@@ -1,7 +1,7 @@
 import { MissingParamError } from '../../errors'
 import { router } from '../../config/express.config'
 import { badRequest } from '../../helpers/http-helper'
-import { updateNode } from '../../controllers/nodes/update-node-controller'
+import { updateNode } from '../../controllers/nodes/update-controller'
 
 export const updateRouter = router
 
