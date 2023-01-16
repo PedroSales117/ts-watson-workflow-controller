@@ -1,7 +1,7 @@
 import { badRequest } from '../http-helper'
-import { updateWorkspaceDialogTree } from '../../controllers/dialogtree/export-dialog-tree-controller'
+import { updateWorkspaceDialogTree } from '../../controllers/export-dialog-tree-controller'
 
-export async function addNewDialogTreeToWorkspace (parentNodeId: string, importNodeId: string): Promise<any> {
+export async function exportDialogTree (parentNodeId: string, importNodeId: string): Promise<any> {
   try {
     return await updateWorkspaceDialogTree(parentNodeId, 100000, importNodeId)
       .then((response) => {

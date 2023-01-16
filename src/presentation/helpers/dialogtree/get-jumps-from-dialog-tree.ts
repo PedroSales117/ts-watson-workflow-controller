@@ -6,15 +6,7 @@ export async function getJumpsFromDialogTree (nodesId: string[], dialogNodes: Di
     const nodesWithJumps: any[] = []
     dialogNodes.forEach((node: DialogNode) => {
       if (node?.next_step?.behavior === 'jump_to' && nodesId.includes(node.next_step.dialog_node)) {
-        return nodesWithJumps.push({
-          jump_details: {
-            to: node.next_step?.dialog_node,
-            from: {
-              title: node.title,
-              id: node.dialog_node
-            }
-          }
-        })
+        return nodesWithJumps.push(node)
       }
     })
     return nodesWithJumps

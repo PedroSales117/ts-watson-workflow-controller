@@ -1,6 +1,6 @@
 import { DialogNode } from 'ibm-watson/assistant/v1'
 import { badRequest } from '../http-helper'
-import { getNodeTree } from './get-dialog-tree'
+import { getNodeTree } from './get-node-tree'
 
 export function getDialogTreeNodesId (nodesId: string[], dialogNodes: DialogNode[]): any {
   try {
