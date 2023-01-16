@@ -5,7 +5,7 @@ export function changeParent (dialogNode: DialogNode, targetNodeList: DialogNode
   try {
     const targetNodeParent = targetNodeList.find(node => node.dialog_node === dialogNode.parent)
 
-    if (targetNodeParent !== undefined) {
+    if (targetNodeParent !== undefined || targetNodeParent !== null) {
       dialogNode.parent = targetNodeParent.dialog_node
       return dialogNode
     }
