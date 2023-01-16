@@ -5,17 +5,17 @@ import { createTargetAssistantV1 } from './create-assistant'
 import { changePreviousSibling } from '../dialogtree/change-previous-sibling'
 import { badRequest, sucessResponse } from '../http-helper'
 
-export async function updateTargetWorkspaceDialogTree (targetNodesList: DialogNode[], importNode: DialogNode, entryPointNode: DialogNode, nodesToExportList: DialogNode[]): Promise<any> {
+export async function updateTargetWorkspaceDialogTree (targetNodesList: DialogNode[], treeLastNode: DialogNode, flowFirstNode: DialogNode, nodesToExportList: DialogNode[]): Promise<any> {
   try {
-    if (!entryPointNode) {
-      return badRequest(new MissingWorkspaceParamError('[entryPointNode]'))
+    if (!flowFirstNode) {
+      return badRequest(new MissingWorkspaceParamError('[parentNode]'))
     }
 
     if (!nodesToExportList) {
       return badRequest(new MissingWorkspaceParamError('[nodesToExport]'))
     }
 
-    changePreviousSibling(entryPointNode, targetNodesList, importNode)
+    changePreviousSibling(flowFirstNode, targetNodesList, treeLastNode)
 
     const dialogTreeToExport = targetNodesList.concat(nodesToExportList)
 
